@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mocha</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="mocha.css"/>
+</head>
+<body>
+<div id="mocha"></div>
+<script type="text/javascript" src="../lib/leaflet/leaflet.js"></script>
+<script src="../src/L.Routing.js"></script>
+<script src="../src/L.ChinaProj.js"></script>
+<!--以上为要被测试代码-->
+<script src="../node_modules/chai/chai.js"></script>
+<script src="mocha.js"></script>
+<script>mocha.setup('bdd');</script>
+<!--以下为测试的方法-->
+<script src="test/L.Routing.Spec.js"></script>
+<script src="test/L.ChinaProj.Spec.js"></script>
+<script>
+    mocha.run();
+</script>
+</body>
+</html>

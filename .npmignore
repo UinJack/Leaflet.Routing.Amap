@@ -1,3 +1,5 @@
+# Created by .ignore support plugin (hsz.mobi)
+### Node template
 # Logs
 logs
 *.log
@@ -36,18 +38,3 @@ jspm_packages
 # Optional REPL history
 .node_repl_history
 
-.idea/*
-.idea/.name
-.idea/Leaflet.Routing.Amap.iml
-.idea/dictionaries/
-.idea/encodings.xml
-.idea/inspectionProfiles/
-.idea/misc.xml
-.idea/modules.xml
-.idea/workspace.xml
-
-
-.eslintrc.js
-.idea/jsLibraryMappings.xml
-.idea/libraries/
-dist/
