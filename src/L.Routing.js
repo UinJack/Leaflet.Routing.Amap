@@ -1,29 +1,21 @@
-'use strict';
+L.Routing = L.Class.extend({
+    includes: [L.Mixin.Events],
 
-(function (factory, window) {
-
-    // define an AMD module that relies on 'leaflet'
-    if (typeof define === "function" && define.amd) {
-        define(["leaflet"], factory);
-
-        // define a Common JS module that relies on 'leaflet'
-    } else if (typeof exports === "object") {
-        module.exports = factory(require("leaflet"));
+    initialize: function (map) {
+        this.map = map;
+        this.routeLayer = new L.featureGroup();
+        this.routeLayer.addTo(this.map);
+        this.route = [];
+    },
+    getRoute: function (how, from, to) {
+        var route = new L.Routing[how](this.routeLayer);
+        route.makeParams(from, to);
+        route._getRoute();
+        this.route.push(route);
     }
 
-    // attach your plugin to the global 'L' variable
-    if (typeof window !== "undefined" && window.L) {
-        window.L.Routing = factory(L);
-    }
-}(function (L) {
-    L.Routing = {
-        add: function (x, y) {
-            return x + y
-        }
+})
 
-    };
-    // implement your plugin
-
-    // return your plugin when you are done
-    return L.Routing;
-}, window));
+L.Routing.BYWALK = "Bywalk";
+L.Routing.BYBUS = "Bybus";
+L.Routing.BYCAR = "Bycar";

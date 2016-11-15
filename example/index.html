@@ -8,17 +8,36 @@
 
     <script type="text/javascript" src="../src/L.ChinaProj.js"></script>
     <script type="text/javascript" src="../src/L.Routing.js"></script>
+    <script src="../src/L.Request.js"></script>
+
+    <script src="../src/L.Routing.Conf.js"></script>
+    <script src="../src/L.Routing.Controller.js"></script>
+    <script src="../src/L.Routing.Reader.js"></script>
+    <script src="../src/L.Routing.Bywalk.js"></script>
     <style>
         html, body, #map {
             height: 100%;
             width: 100%;
+            margin: 0;
+            padding: 0;
         }
     </style>
 </head>
 <body>
 <div id="map"></div>
 </body>
-<script type="text/javascript" >
-    var cc = L;
+<script type="text/javascript">
+    var osmUrl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+            osmAttrib = '&copy; <a href="http://openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+            osm = L.tileLayer(osmUrl, {maxZoom: 18, attribution: osmAttrib}),
+            latlng = new L.LatLng(39.91668168130951, 116.3941812515259);
+
+    var map = new L.Map('map', {center: latlng, zoom: 15, layers: [osm]});
+    debugger;
+
+    var route = new L.Routing(map);
+    route.getRoute(L.Routing.BYWALK, [39.910031, 116.45925], [40.081577, 116.587922]);
+
+
 </script>
 </html>
