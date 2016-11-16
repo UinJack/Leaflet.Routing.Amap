@@ -1,4 +1,4 @@
-L.Routing.Bywalk = L.Routing.Reader.extend({
+L.Routing.Bycar = L.Routing.Reader.extend({
     initialize: function (layer, options) {
         L.Routing.Reader.prototype.initialize.call(this, options);
         this.layer = layer;
@@ -12,7 +12,7 @@ L.Routing.Bywalk = L.Routing.Reader.extend({
         }
 
 
-        this.url = this.url + "direction/walking";
+        this.url = this.url + "direction/driving";
     },
     callback: function (a, b, c) {
         debugger;

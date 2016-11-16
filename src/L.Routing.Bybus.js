@@ -1,4 +1,4 @@
-L.Routing.Bywalk = L.Routing.Reader.extend({
+L.Routing.Bybus = L.Routing.Reader.extend({
     initialize: function (layer, options) {
         L.Routing.Reader.prototype.initialize.call(this, options);
         this.layer = layer;
@@ -7,12 +7,13 @@ L.Routing.Bywalk = L.Routing.Reader.extend({
         this.params = {
             origin: from[1] + "," + from[0],
             destination: to[1] + "," + to[0],
+            city: "北京",
             output: "json",
             key: this.key
         }
 
 
-        this.url = this.url + "direction/walking";
+        this.url = this.url + "direction/transit/integrated";
     },
     callback: function (a, b, c) {
         debugger;

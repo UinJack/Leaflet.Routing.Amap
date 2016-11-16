@@ -16,8 +16,6 @@
     <script src="../src/L.Routing.Controller.js"></script>
     <script src="../src/L.Routing.Reader.js"></script>
     <script src="../src/L.Routing.Bywalk.js"></script>
-    <script src="../src/L.Routing.Bybus.js"></script>
-    <script src="../src/L.Routing.Bycar.js"></script>
     <script src="../src/L.Routing.Query.js"></script>
     <style>
         html, body, #map {
@@ -36,15 +34,16 @@
             osmAttrib = '&copy; <a href="http://openstreetmap.org/copyright">OpenStreetMap</a> contributors',
             osm = L.tileLayer(osmUrl, {
                 maxZoom: 18,
-                attribution: osmAttrib
-
+                attribution: osmAttrib,
+                tileSize: 256
             }),
             latlng = new L.LatLng(39.91668168130951, 116.3941812515259);
 
-    var map = new L.Map('map', {center: latlng, zoom: 15, layers: [osm], zoomControl: false});
+    var map = new L.Map('map', {center: latlng, zoom: 15, layers: [osm]});
+
 
     var route = new L.Routing(map);
-    route.getRoute(L.Routing.BYBUS, [39.94185, 116.431549], [39.98974, 116.40683]);
+    route.getTarget("KFC");
 
 
 </script>
