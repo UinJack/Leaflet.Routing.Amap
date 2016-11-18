@@ -7,6 +7,7 @@ L.Routing.Bycar = L.Routing.Reader.extend({
         this.params = {
             origin: from[1] + "," + from[0],
             destination: to[1] + "," + to[0],
+            city: "北京",
             output: "json",
             key: this.key
         }
@@ -15,7 +16,7 @@ L.Routing.Bycar = L.Routing.Reader.extend({
         this.url = this.url + "direction/driving";
     },
     callback: function (a, b, c) {
-        debugger;
+
         var steps = b.route.paths[0].steps;
         var distance = b.route.paths[0].distance;
         var duration = b.route.paths[0].duration;
@@ -23,7 +24,7 @@ L.Routing.Bycar = L.Routing.Reader.extend({
             this._lineReader(steps[i].polyline).addTo(this.layer);
         }
 
-        this.layer._map.fitBounds(this.layer.getBounds());
+        this.layer._map.fitBounds(this.layer.getLayers()[0].getBounds());
 
         var time = (duration / 60) / 60
         console.log("需要花费:" + time + "小时");

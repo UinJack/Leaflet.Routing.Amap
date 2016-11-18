@@ -15,7 +15,7 @@ L.Routing.Reader = L.Class.extend({
     },
 
     _lineReader: function (lineString) {
-        debugger;
+
         var line = lineString.split(";");
         var lineArray = [];
         for (var i in line) {
@@ -39,7 +39,7 @@ L.Routing.Reader = L.Class.extend({
         return polyline;
     },
     _transform: function (lat, lng) {
-        debugger;
+
         switch (this.options.transform) {
             case "WGS84":
                 var gpsLatlng = L.ChinaProj.gcj_To_Gps84(lat, lng);

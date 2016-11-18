@@ -25,7 +25,7 @@ L.Routing.Query = L.Routing.Reader.extend({
         this.layer._map.fitBounds(this.layer.getBounds());
     },
     clickCallback: function (e) {
-        debugger;
+
         alert("Click");
     }
 

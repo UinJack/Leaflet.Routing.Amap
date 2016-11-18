@@ -20,6 +20,8 @@
 
         url: "http://restapi.amap.com/v3/",
         key: "1ce5f4aef24df9b3315632813c7fcaa2",
+        style: {
+        },
         dictionary: [
             ["", ""],
             ["", ""]
