@@ -6,23 +6,24 @@
 
     <title>Example</title>
     <link rel="stylesheet" href="../lib/leaflet/leaflet.css"/>
-    <link rel="stylesheet" href="routing.css"/>
+    <link rel="stylesheet" href="../style/routing.css"/>
+    <link rel="stylesheet" href="css/routing.css"/>
     <link rel="stylesheet" href="font-awesome.min.css"/>
     <script type="text/javascript" src="../lib/leaflet/leaflet.js"></script>
 
-    <script type="text/javascript" src="../dist/Leaflet.Routing.Amap.min.js"></script>
+    <!--<script type="text/javascript" src="../dist/Leaflet.Routing.Amap.min.js"></script>-->
 
-    <!--<script type="text/javascript" src="../src/L.ChinaProj.js"></script>-->
-    <!--<script type="text/javascript" src="../src/L.Routing.js"></script>-->
-    <!--<script src="../src/L.Request.js"></script>-->
+    <script type="text/javascript" src="../src/L.ChinaProj.js"></script>
+    <script type="text/javascript" src="../src/L.Routing.js"></script>
+    <script src="../src/L.Request.js"></script>
 
-    <!--<script src="../src/L.Routing.Conf.js"></script>-->
-    <!--<script src="../src/L.Routing.Controller.js"></script>-->
-    <!--<script src="../src/L.Routing.Reader.js"></script>-->
-    <!--<script src="../src/L.Routing.Bywalk.js"></script>-->
-    <!--<script src="../src/L.Routing.Bybus.js"></script>-->
-    <!--<script src="../src/L.Routing.Bycar.js"></script>-->
-    <!--<script src="../src/L.Routing.Query.js"></script>-->
+    <script src="../src/L.Routing.Conf.js"></script>
+
+    <script src="../src/L.Routing.Reader.js"></script>
+    <script src="../src/L.Routing.Bywalk.js"></script>
+    <script src="../src/L.Routing.Bybus.js"></script>
+    <script src="../src/L.Routing.Bycar.js"></script>
+    <script src="../src/L.Routing.Query.js"></script>
     <style>
         html, body, #map {
             height: 100%;
@@ -34,6 +35,16 @@
 </head>
 <body>
 <div id="map"></div>
+
+<!--<div class="rouring-tools rouring-alert">-->
+<!--<h2>Tip:</h2>-->
+<!--<div>-->
+<!--Click the-->
+<!--<p class="circle"></p>-->
+<!--get more message.-->
+<!--</div>-->
+<!--</div>-->
+
 <div class="rouring-tools">
     <ul class="routing-tools-method">
         <li>
@@ -61,11 +72,12 @@
     </ul>
     <ul class="routing-tools-textinput">
         <li>
-            <i class="fa fa-search fa-2x" aria-hidden="true"></i>
+            <i class="fa fa-map-marker fa-2x" aria-hidden="true"></i>
         </li>
         <li>
             <h5><b>Where?</b></h5>
-            <input type="text" placeholder="Input where you want to go?">
+            <input id="textbox" onfocusout="textChange('textbox')" type="text"
+                   placeholder="Input where you want to go?">
         </li>
     </ul>
 
@@ -73,10 +85,11 @@
 </div>
 </body>
 <script type="text/javascript">
-
+    lastFrom = [39.94185, 116.431549];
+    lastTo = [39.98974, 116.40683];
     //https://api.mapbox.com/styles/v1/q84201088/ciqri2h06000ebmmab63h3b1j/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoicTg0MjAxMDg4IiwiYSI6Ik1DRnNOdVEifQ.1n72ycxlD4FtPf8usdznVg
-    //    var osmUrl = 'http://tile-{s}.openstreetmap.fr/hot/{z}/{x}/{y}.png',
-    var osmUrl = 'https://api.mapbox.com/styles/v1/q84201088/ciqri2h06000ebmmab63h3b1j/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoicTg0MjAxMDg4IiwiYSI6Ik1DRnNOdVEifQ.1n72ycxlD4FtPf8usdznVg',
+    var osmUrl = 'http://tile-{s}.openstreetmap.fr/hot/{z}/{x}/{y}.png',
+//    var osmUrl = 'https://api.mapbox.com/styles/v1/q84201088/ciqri2h06000ebmmab63h3b1j/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoicTg0MjAxMDg4IiwiYSI6Ik1DRnNOdVEifQ.1n72ycxlD4FtPf8usdznVg',
             osmAttrib = '&copy; <a href="http://mapbox.com/">Mapbox</a> ',
             osm = L.tileLayer(osmUrl, {
                 maxZoom: 18,
@@ -95,9 +108,24 @@
         var item = document.getElementById(how);
         item.className = "active";
 
-        route.getRoute(how, [39.94185, 116.431549], [39.98974, 116.40683]);
+        route.getRoute(how, lastFrom, lastTo);
     }
 
+    function textChange(id) {
+        debugger;
+        route.queryLayer.clearLayers();
+        route.routeLayer.clearLayers();
+        var item = document.getElementById(id);
+        route.getPOI(item.value);
+
+        route.on("MARKCLICK", function (e) {
+
+//            var from = this.query._untransform(center.lat, center.lng);
+//            var to = this.query._untransform(e.latlng.lat, e.latlng.lng);
+//            this.getRoute(this.lastWay, [from.lat, from.lng], [to.lat, to.lng])
+
+        }, this)
+    }
     function cleanAll() {
         var walk = document.getElementById("Bywalk").className = "";
         var bus = document.getElementById("Bybus").className = "";

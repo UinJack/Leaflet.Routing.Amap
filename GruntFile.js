@@ -10,13 +10,12 @@ module.exports = function (grunt) {
         concat: {
             js: {
                 src: [
-                    'src/L.ChinaProj.js',
-                    'src/L.Routing.js',
 
+                    'src/L.Routing.js',
+                    'src/L.ChinaProj.js',
                     'src/L.Request.js',
 
                     'src/L.Routing.Conf.js',
-                    'src/L.Routing.Controller.js',
                     'src/L.Routing.Reader.js',
                     'src/L.Routing.Bywalk.js',
                     'src/L.Routing.Bybus.js',

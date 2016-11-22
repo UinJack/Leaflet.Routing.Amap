@@ -6,6 +6,7 @@
 
     <title>Example</title>
     <link rel="stylesheet" href="../lib/leaflet/leaflet.css"/>
+    <link rel="stylesheet" href="../style/routing.css"/>
     <script type="text/javascript" src="../lib/leaflet/leaflet.js"></script>
 
     <script type="text/javascript" src="../src/L.ChinaProj.js"></script>
@@ -13,9 +14,11 @@
     <script src="../src/L.Request.js"></script>
 
     <script src="../src/L.Routing.Conf.js"></script>
-    <script src="../src/L.Routing.Controller.js"></script>
+
     <script src="../src/L.Routing.Reader.js"></script>
     <script src="../src/L.Routing.Bywalk.js"></script>
+    <script src="../src/L.Routing.Bybus.js"></script>
+    <script src="../src/L.Routing.Bycar.js"></script>
     <script src="../src/L.Routing.Query.js"></script>
     <style>
         html, body, #map {
@@ -42,8 +45,8 @@
     var map = new L.Map('map', {center: latlng, zoom: 15, layers: [osm]});
 
 
-    var route = new L.Routing(map);
-    route.getTarget("KFC");
+    var route = new L.Routing(map, {});
+    route.getPOI("KFC");
 
 
 </script>

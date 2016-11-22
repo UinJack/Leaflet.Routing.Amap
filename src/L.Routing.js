@@ -5,17 +5,26 @@ L.Routing = L.Class.extend({
         // 3 options for transform ,depend on the map:
         // WGS84,BD09,NONE
         transform: "WGS84",
-        colorfulLine: true,
-        isZoom: true
+        //if color is "multi",the line will be colorful,general color view depend on you set.
+        color: "RGBA(245, 224, 128, 1.0)",
+        isShowRoutePopup: true,
+        isShowQueryPopup: true,
+        isZoom: true,
+        //is very difficult for me ,this option is true you can see ,a part of the
+        //describe about routing was be translated.
+        isTranslate: true
     },
 
     initialize: function (map, options) {
+
         this.map = map;
         this.routeLayer = new L.featureGroup();
         this.routeLayer.addTo(this.map);
 
         this.queryLayer = new L.featureGroup();
         this.queryLayer.addTo(this.map);
+        //default record last method to ues
+        //this.lastWay = "Bywalk";
 
         L.setOptions(this, options);
 
@@ -28,15 +37,25 @@ L.Routing = L.Class.extend({
     },
     getRoute: function (how, from, to) {
 
+        this.routeLayer.clearLayers();
+
+        this.lastWay = how;
+
         this[how].setParams(from, to);
         this[how].getRoute();
     },
-    getTarget: function (keyword) {
-        var center = map.getCenter();
-        var centerStr = center.lng + "," + center.lat;
+    getPOI: function (keyword) {
+        var center = this.map.getCenter();
+        var gcjCenter = this.query._untransform(center.lat, center.lng)
+        var centerStr = gcjCenter.lng + "," + gcjCenter.lat;
         this.query.setParams(keyword, centerStr);
         this.query.getPOI();
+
+        this.query.on("CLICK", function (e) {
+            this.fire("MARKCLICK");
+        }, this)
     }
+
 })
 
 L.Routing.BYWALK = "Bywalk";

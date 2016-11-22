@@ -1,5 +1,5 @@
 /**
- * Http请求类
+ * Http request
  *
  * 该方法提供 Get||Post||Jsonp 请求
  * this.Method offer Get||Post||Jsonp serval way to request

@@ -2,17 +2,16 @@ L.Routing.Bywalk = L.Routing.Reader.extend({
     initialize: function (layer, options) {
         L.Routing.Reader.prototype.initialize.call(this, options);
         this.layer = layer;
+        this.url = this.url + "direction/walking";
     },
     setParams: function (from, to) {
         this.params = {
-            origin: from[1] + "," + from[0],
-            destination: to[1] + "," + to[0],
+
+            origin: this._SplitAndRound(from[1], 4) + "," + this._SplitAndRound(from[0], 4),
+            destination: this._SplitAndRound(to[1], 4) + "," + this._SplitAndRound(to[0], 4),
             output: "json",
             key: this.key
         }
-
-
-        this.url = this.url + "direction/walking";
     },
     callback: function (a, b, c) {
 
@@ -27,22 +26,30 @@ L.Routing.Bywalk = L.Routing.Reader.extend({
             iconAnchor: [8, 20],
             popupAnchor: [0, 0],
         });
-
-        debugger;
         for (var i in steps) {
             var polyline = this._lineReader(steps[i].polyline).addTo(this.layer);
             var marker = new L.marker(polyline.getLatLngs()[0], {icon: myIcon});
-            marker.addTo(this.layer).bindPopup(steps[i].instruction);
+            var instrucation = "";
+            if (this.options.isTranslate) {
+                instrucation = this._translate(steps[i].instruction);
+            } else {
+                instrucation = steps[i].instruction;
+            }
+
+            if (this.options.isShowRoutePopup) {
+                marker.addTo(this.layer).bindPopup(instrucation);
+            } else {
+                marker.addTo(this.layer);
+            }
         }
 
         this.layer._map.fitBounds(this.layer.getLayers()[0].getBounds());
 
-
         var time = (duration / 60) / 60
-        console.log("需要花费:" + time + "小时");
-        console.log("距离:" + (distance / 1000) + "公里");
+        console.log("Time:" + time + "hours");
+        console.log("distance:" + (distance / 1000) + "km");
     },
-    clean:function(){
+    clean: function () {
         this.layer.clean();
     }
 
