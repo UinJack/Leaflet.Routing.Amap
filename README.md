@@ -2,7 +2,7 @@
 
 ## Description
 
-Input location plan your suitable route to go and use in Amap service .
+ This is a routing implementation from AMap(高德地图),you need set a location points and key first,Leaflet.Routing.Amap will generates colorful route. Because of most china map use unique Projection , include AMap, this should be attention.so I import Project class for projection transform.
 
 
 ## Examples
@@ -89,7 +89,8 @@ npm install
 ```javascript
 
 	 var route = new L.Routing(map);
-	 route.on("MARKCLICK", function (e) {		//handing 
+	 route.on("MARKCLICK", function (e) {		
+	    //handing 
      }, this)
 	 
 ```
