@@ -28,35 +28,19 @@ L.Routing.Bybus = L.Routing.Reader.extend({
         console.log("need cost" + (route.duration / 60) / 60 + "hour");
 
 
-        var myIcon = L.divIcon({
-            className: 'my-div-icon',
-            html: "<p id='circle'></p>",
-            iconSize: [10, 10],
-            iconAnchor: [8, 20],
-            popupAnchor: [0, 0],
-        });
-
-        var busIcon = L.divIcon({
-            className: 'my-div-icon',
-            html: "<p id='rect'></p>",
-            iconSize: [10, 10],
-            iconAnchor: [8, 20],
-            popupAnchor: [0, 0],
-        });
-
-        debugger;
         var walkingArr = [];
         for (var index in route.segments) {
             walkingArr.push(route.segments[index].walking);
-            for (var i in route.segments[index].walking.steps) {
-                var polyline = this._lineReader(route.segments[index].walking.steps[i].polyline).addTo(this.layer);
+            var steps = route.segments[index].walking.steps
+            for (var i in steps) {
+                var polyline = this._lineReader(steps[i].polyline).addTo(this.layer);
                 polyline.setStyle({dashArray: "20,20"});
 
-                var marker = new L.marker(polyline.getLatLngs()[0], {icon: myIcon});
+                var marker = new L.marker(polyline.getLatLngs()[0], {icon: this._getIcon('circle')});
 
                 var instrucation = "";
                 if (this.options.isTranslate) {
-                    instrucation = this._translate(route.segments[index].walking.steps[i].instruction);
+                    instrucation = this._translate(steps[i].instruction);
                 } else {
                     instrucation = steps[i].instruction;
                 }
@@ -73,18 +57,19 @@ L.Routing.Bybus = L.Routing.Reader.extend({
         var busArr = []
         for (var index in route.segments) {
             busArr.push(route.segments[index].bus.buslines);
-            for (var i in route.segments[index].bus.buslines) {
-                var busline = this._lineReader(route.segments[index].bus.buslines[i].polyline).addTo(this.layer);
+            var busLines = route.segments[index].bus.buslines;
+            for (var i in busLines) {
+                var busline = this._lineReader(busLines[i].polyline).addTo(this.layer);
 
-                var busMarker = new L.marker(busline.getLatLngs()[0], {icon: myIcon});
+                var busMarker = new L.marker(busline.getLatLngs()[0], {icon: this._getIcon('circle')});
 
-                var instrucation = route.segments[index].bus.buslines[i].name;
+                var instrucation = busLines[i].name;
 
-                for (var stop in route.segments[index].bus.buslines[i].via_stops) {
+                for (var stop in busLines[i].via_stops) {
 
-                    var busStop = this._pointReader(route.segments[index].bus.buslines[i].via_stops[stop].location);
-                    busStop.addTo(this.layer).bindPopup("Stop Name:" + route.segments[index].bus.buslines[i].via_stops[stop].name);
-                    busStop.setIcon(busIcon);
+                    var busStop = this._pointReader(busLines.via_stops[stop].location);
+                    busStop.addTo(this.layer).bindPopup("Stop Name:" + busLines.via_stops[stop].name);
+                    busStop.setIcon(this._getIcon('rect'));
                 }
 
                 if (this.options.isShowRoutePopup) {

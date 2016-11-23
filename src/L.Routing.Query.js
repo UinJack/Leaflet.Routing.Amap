@@ -10,7 +10,6 @@ L.Routing.Query = L.Routing.Reader.extend({
             keywords: keywords,
             location: location,
             datatype: "poi",
-            //types: "050301",
             key: this.key
         }
     },

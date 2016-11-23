@@ -24,14 +24,12 @@ L.Routing = L.Class.extend({
         this.queryLayer = new L.featureGroup();
         this.queryLayer.addTo(this.map);
         //default record last method to ues
-        //this.lastWay = "Bywalk";
 
         L.setOptions(this, options);
 
         //initialize method ,avoid repeat statement this.
         this.Bywalk = new L.Routing.Bywalk(this.routeLayer, this.options);
         this.Bywalk.on("ROUTEBACK", function (e) {
-            debugger;
             this.fire("WALKROUTEBACK", e, this);
         }, this)
 
@@ -50,7 +48,6 @@ L.Routing = L.Class.extend({
 
         this.routeLayer.clearLayers();
 
-        this.lastWay = how;
 
         this[how].setParams(from, to);
         this[how].getRoute();

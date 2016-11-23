@@ -11,8 +11,6 @@
     <link rel="stylesheet" href="font-awesome.min.css"/>
     <script type="text/javascript" src="../lib/leaflet/leaflet.js"></script>
 
-    <!--<script type="text/javascript" src="../dist/Leaflet.Routing.Amap.min.js"></script>-->
-
     <script type="text/javascript" src="../src/L.ChinaProj.js"></script>
     <script type="text/javascript" src="../src/L.Routing.js"></script>
     <script src="../src/L.Request.js"></script>
@@ -35,15 +33,6 @@
 </head>
 <body>
 <div id="map"></div>
-
-<!--<div class="rouring-tools rouring-alert">-->
-<!--<h2>Tip:</h2>-->
-<!--<div>-->
-<!--Click the-->
-<!--<p class="circle"></p>-->
-<!--get more message.-->
-<!--</div>-->
-<!--</div>-->
 
 <div class="rouring-tools">
     <ul class="routing-tools-method">
@@ -87,10 +76,9 @@
 <script type="text/javascript">
     lastFrom = [39.94185, 116.431549];
     lastTo = [39.98974, 116.40683];
-    //https://api.mapbox.com/styles/v1/q84201088/ciqri2h06000ebmmab63h3b1j/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoicTg0MjAxMDg4IiwiYSI6Ik1DRnNOdVEifQ.1n72ycxlD4FtPf8usdznVg
+
     var osmUrl = 'http://tile-{s}.openstreetmap.fr/hot/{z}/{x}/{y}.png',
-//    var osmUrl = 'https://api.mapbox.com/styles/v1/q84201088/ciqri2h06000ebmmab63h3b1j/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoicTg0MjAxMDg4IiwiYSI6Ik1DRnNOdVEifQ.1n72ycxlD4FtPf8usdznVg',
-            osmAttrib = '&copy; <a href="http://mapbox.com/">Mapbox</a> ',
+            osmAttrib = '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
             osm = L.tileLayer(osmUrl, {
                 maxZoom: 18,
                 attribution: osmAttrib
@@ -101,9 +89,6 @@
 
     var route = new L.Routing(map);
     route.getRoute(L.Routing.BYWALK, [39.94185, 116.431549], [39.98974, 116.40683]);
-    route.on("WALKROUTEBACK", function (e) {
-        debugger;
-    })
 
     function changeMethod(how) {
         cleanAll();
@@ -121,14 +106,6 @@
         var item = document.getElementById(id);
         route.getPOI(item.value);
 
-
-        route.on("MARKCLICK", function (e) {
-
-//            var from = this.query._untransform(center.lat, center.lng);
-//            var to = this.query._untransform(e.latlng.lat, e.latlng.lng);
-//            this.getRoute(this.lastWay, [from.lat, from.lng], [to.lat, to.lng])
-
-        }, this)
     }
     function cleanAll() {
         var walk = document.getElementById("Bywalk").className = "";

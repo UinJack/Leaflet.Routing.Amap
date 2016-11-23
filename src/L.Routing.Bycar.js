@@ -16,22 +16,12 @@ L.Routing.Bycar = L.Routing.Reader.extend({
     },
     callback: function (a, b, c) {
 
-        var myIcon = L.divIcon({
-            className: 'my-div-icon',
-            html: "<p id='circle'></p>",
-            iconSize: [10, 10],
-            iconAnchor: [8, 20],
-            popupAnchor: [0, 0],
-        });
-
-
         var steps = b.route.paths[0].steps;
         var distance = b.route.paths[0].distance;
         var duration = b.route.paths[0].duration;
         for (var i in steps) {
-            debugger
             var polyline = this._lineReader(steps[i].polyline).addTo(this.layer);
-            var marker = new L.marker(polyline.getLatLngs()[0], {icon: myIcon});
+            var marker = new L.marker(polyline.getLatLngs()[0], {icon: this._getIcon('circle')});
             var instrucation = "";
             if (this.options.isTranslate) {
                 instrucation = this._translate(steps[i].instruction);

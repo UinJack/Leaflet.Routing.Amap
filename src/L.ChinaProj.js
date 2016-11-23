@@ -1,4 +1,3 @@
-
 /**
  * 各地图API坐标系统比较与转换;
  * WGS84坐标系：即地球坐标系，国际上通用的坐标系。设备一般包含GPS芯片或者北斗芯片获取的经纬度为WGS84地理坐标系,
@@ -10,16 +9,13 @@
 
 (function (factory, window) {
 
-    // define an AMD module that relies on 'leaflet'
     if (typeof define === "function" && define.amd) {
         define(["leaflet"], factory);
 
-        // define a Common JS module that relies on 'leaflet'
     } else if (typeof exports === "object") {
         module.exports = factory(require("leaflet"));
     }
 
-    // attach your plugin to the global 'L' variable
     if (typeof window !== "undefined" && window.L) {
         window.L.ChinaProj = factory(L);
     }
@@ -50,7 +46,7 @@
             dLon = (dLon * 180.0) / (this.a / sqrtMagic * Math.cos(radLat) * this.pi);
             var mgLat = lat + dLat;
             var mgLon = lon + dLon;
-            return [mgLat,mgLon];
+            return [mgLat, mgLon];
         },
 
         /**
@@ -60,7 +56,7 @@
             var gps = this.transform(lat, lon);
             var lontitude = lon * 2 - gps[1];
             var latitude = lat * 2 - gps[0];
-            return [latitude,lontitude];
+            return [latitude, lontitude];
         },
 
         /**
@@ -148,8 +144,5 @@
             return ret;
         }
     };
-    // implement your plugin
-
-    // return your plugin when you are done
     return L.ChinaProj;
 }, window));

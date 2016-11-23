@@ -216,7 +216,6 @@ L.Request = {
                 }
 
                 callback.call(context, error, response);
-                //  window._Callback[callbackId] = true;
             }
         };
 

@@ -10,13 +10,21 @@ L.Routing.Reader = L.Class.extend({
     getRoute: function () {
 
         L.Request.JSONP(this.url, this.params, function (a, b, c) {
-            debugger;
             this.callback(a, b, c);
             this.fire("ROUTEBACK", {a: a, b: b, c: c}, this);
         }, this);
     },
     getPOI: function () {
         this.getRoute();
+    },
+    _getIcon: function (style) {
+        return new L.divIcon({
+            className: 'none',
+            html: "<p id='" + style + "'></p>",
+            iconSize: [10, 10],
+            iconAnchor: [8, 20],
+            popupAnchor: [0, 0],
+        });
     },
 
     _pointReader: function (pointsString) {
@@ -26,7 +34,6 @@ L.Routing.Reader = L.Class.extend({
         var marker = new L.marker(latlng);
         marker.on('click', function (e) {
             this.fire("CLICK", e, this);
-            //this.clickCallback(e);
         }, this);
         return marker;
 
@@ -64,40 +71,39 @@ L.Routing.Reader = L.Class.extend({
         return polyline;
     },
     _transform: function (lat, lng) {
-
+        var gpsLatlng, latlng;
         switch (this.options.transform) {
             case "WGS84":
-                var gpsLatlng = L.ChinaProj.gcj_To_Gps84(lat, lng);
-                var latlng = new L.LatLng(gpsLatlng[0], gpsLatlng[1]);
+                gpsLatlng = L.ChinaProj.gcj_To_Gps84(lat, lng);
+                latlng = new L.LatLng(gpsLatlng[0], gpsLatlng[1]);
                 break;
             case "BD09":
-                var gpsLatlng = L.ChinaProj.gcj02_To_Bd09(lat, lng);
-                var latlng = new L.LatLng(gpsLatlng[0], gpsLatlng[1]);
+                gpsLatlng = L.ChinaProj.gcj02_To_Bd09(lat, lng);
+                latlng = new L.LatLng(gpsLatlng[0], gpsLatlng[1]);
                 break;
             case "GCJ02":
-                var latlng = new L.LatLng(lat, lng);
+                latlng = new L.LatLng(lat, lng);
                 break;
         }
         return latlng;
     },
     _untransform: function (lat, lng) {
-
+        var gcjLatlng, latlng;
         switch (this.options.transform) {
             case "WGS84":
-                var gpsLatlng = L.ChinaProj.gps84_To_Gcj02(lat, lng);
-                var latlng = new L.LatLng(gpsLatlng[0], gpsLatlng[1]);
+                gcjLatlng = L.ChinaProj.gps84_To_Gcj02(lat, lng);
+                latlng = new L.LatLng(gcjLatlng[0], gcjLatlng[1]);
                 break;
             case "BD09":
-                var gpsLatlng = L.ChinaProj.bd09_To_Gcj02(lat, lng);
-                var latlng = new L.LatLng(gpsLatlng[0], gpsLatlng[1]);
+                gcjLatlng = L.ChinaProj.bd09_To_Gcj02(lat, lng);
+                latlng = new L.LatLng(gcjLatlng[0], gcjLatlng[1]);
                 break;
             case "GCJ02":
-                var latlng = new L.LatLng(lat, lng);
+                latlng = new L.LatLng(lat, lng);
                 break;
         }
         return latlng;
     },
-
 
     _getRandomColor: function () {
         return "#" + ("00000" + ((Math.random() * 16777215 + 0.5) >> 0).toString(16)).slice(-6);
