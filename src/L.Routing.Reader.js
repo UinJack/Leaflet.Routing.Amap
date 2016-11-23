@@ -9,7 +9,11 @@ L.Routing.Reader = L.Class.extend({
     },
     getRoute: function () {
 
-        L.Request.JSONP(this.url, this.params, this.callback, this);
+        L.Request.JSONP(this.url, this.params, function (a, b, c) {
+            debugger;
+            this.callback(a, b, c);
+            this.fire("ROUTEBACK", {a: a, b: b, c: c}, this);
+        }, this);
     },
     getPOI: function () {
         this.getRoute();
@@ -70,7 +74,7 @@ L.Routing.Reader = L.Class.extend({
                 var gpsLatlng = L.ChinaProj.gcj02_To_Bd09(lat, lng);
                 var latlng = new L.LatLng(gpsLatlng[0], gpsLatlng[1]);
                 break;
-            case "NONE":
+            case "GCJ02":
                 var latlng = new L.LatLng(lat, lng);
                 break;
         }
@@ -87,7 +91,7 @@ L.Routing.Reader = L.Class.extend({
                 var gpsLatlng = L.ChinaProj.bd09_To_Gcj02(lat, lng);
                 var latlng = new L.LatLng(gpsLatlng[0], gpsLatlng[1]);
                 break;
-            case "NONE":
+            case "GCJ02":
                 var latlng = new L.LatLng(lat, lng);
                 break;
         }

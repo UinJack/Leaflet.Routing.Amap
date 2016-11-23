@@ -3,7 +3,7 @@ L.Routing = L.Class.extend({
 
     options: {
         // 3 options for transform ,depend on the map:
-        // WGS84,BD09,NONE
+        // WGS84,BD09,GCJ02
         transform: "WGS84",
         //if color is "multi",the line will be colorful,general color view depend on you set.
         color: "RGBA(245, 224, 128, 1.0)",
@@ -30,8 +30,19 @@ L.Routing = L.Class.extend({
 
         //initialize method ,avoid repeat statement this.
         this.Bywalk = new L.Routing.Bywalk(this.routeLayer, this.options);
+        this.Bywalk.on("ROUTEBACK", function (e) {
+            debugger;
+            this.fire("WALKROUTEBACK", e, this);
+        }, this)
+
         this.Bybus = new L.Routing.Bybus(this.routeLayer, this.options);
+        this.Bybus.on("ROUTEBACK", function (e) {
+            this.fire("BUSROUTEBACK", e, this);
+        }, this)
         this.Bycar = new L.Routing.Bycar(this.routeLayer, this.options);
+        this.Bycar.on("ROUTEBACK", function (e) {
+            this.fire("CARROUTEBACK", e, this);
+        }, this)
 
         this.query = new L.Routing.Query(this.queryLayer, this.options);
     },
