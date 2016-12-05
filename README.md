@@ -9,7 +9,7 @@
 
 ## Examples
 
-[Demo](http://gdyblog.com/Demo/Leaflet.Routing.Amap/)
+[Demo](https://bkgiser.github.io/Leaflet.Routing.Amap/example/)
 
 ![demo](http://gdyblog.com/resource/website/routing.png)
 
