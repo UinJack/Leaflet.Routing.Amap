@@ -2,7 +2,7 @@
 
 ## Description
 
- This is a routing implementation from AMap(高德地图),you need set a location points and key first,Leaflet.Routing.Amap will generates colorful route. Because of most china map use unique Projection , include AMap, this should be attention.so I import Project class for projection transform.
+Control for route search using AMap(高德地图) as a backend. Supports the Chinese BD09 and GCJ02 coordinate systems, colourful lines, and turn-by-turn popups.
 
 ![demo](http://gdyblog.com/resource/website/routing.gif)
 
