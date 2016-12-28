@@ -5,13 +5,12 @@ L.Routing = L.Class.extend({
         // 3 options for transform ,depend on the map:
         // WGS84,BD09,GCJ02
         transform: "WGS84",
-        //if color is "multi",the line will be colorful,general color view depend on you set.
+        //Line color, if color is "multi",the line will be colorful.
         color: "RGBA(245, 224, 128, 1.0)",
         isShowRoutePopup: true,
         isShowQueryPopup: true,
         isZoom: true,
-        //is very difficult for me ,this option is true you can see ,a part of the
-        //describe about routing was be translated.
+        //Is route describe translate.
         isTranslate: true
     },
 
@@ -23,8 +22,8 @@ L.Routing = L.Class.extend({
 
         this.queryLayer = new L.featureGroup();
         this.queryLayer.addTo(this.map);
-        //default record last method to ues
 
+        //Default set
         L.setOptions(this, options);
 
         //initialize method ,avoid repeat statement this.

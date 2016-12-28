@@ -33,6 +33,15 @@ npm install
  route.getRoute(L.Routing.BYWALK, [39.94185, 116.431549], [39.98974, 116.40683]);
 
 ```
+
+### Default conf is :
+
+* url: "https://restapi.amap.com/v3/"
+  
+* key: "1ce5f4aef24df9b3315632813c7fcaa2"
+
+set this properties at `Leaflet.Routing.Amap/src/L.Routing.Conf.js`.
+
 ### Initialize Options
 
 |option name |default|comment|
@@ -70,7 +79,7 @@ npm install
 ```
 |option name |describe|
 |----------- |------- |
-|keyword |That is name about you look for|
+|keyword |keyword in you search|
 
 ### properties
 
